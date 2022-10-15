@@ -25,7 +25,7 @@ set(SOURCES
 	src/main.cpp
 )
 
-set(NAME elwolfengine)
+set(NAME elwolf2d)
 
 set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/imgui)
 add_library(IMGUI STATIC)
@@ -53,7 +53,7 @@ target_link_libraries(IMGUI PUBLIC SDL2main SDL2 ${CMAKE_DL_LIBS})
 
 add_executable(${NAME})
 target_sources(${NAME} PUBLIC ${SOURCES})
-target_include_directories(elwolfengine
+target_include_directories(${NAME}
 	PUBLIC libs/entt/src
 )
 target_link_libraries(${NAME} IMGUI ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
