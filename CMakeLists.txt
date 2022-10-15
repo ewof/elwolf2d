@@ -18,16 +18,28 @@ set(SOURCES
 	assets/scripts/Level1.lua
 	assets/scripts/Level2.lua
 	assets/scripts/Level3.lua
-	src/AssetStore/AssetStore.h
+	src/AssetStore/AssetStore.hpp
 	src/AssetStore/AssetStore.cpp
-	src/components/sprite.hpp
-	src/components/transform.hpp
-	src/systems/render.hpp
-	src/game/LevelLoader.h
-	src/game/LevelLoader.cpp
-	src/game/game.h
-	src/game/game.cpp
-	src/main.cpp
+
+	src/Components/Animation.hpp
+	src/Components/BoxCollider.hpp
+    src/Components/CameraFollow.hpp
+    src/Components/Health.hpp
+    src/Components/KeyboardControlled.hpp
+    src/Components/Projectile.hpp
+    src/Components/ProjectileEmitter.hpp
+    src/Components/RigidBody.hpp
+    src/Components/Script.hpp
+    src/Components/Sprite.hpp
+    src/Components/TextLabel.hpp
+    src/Components/Transform.hpp
+
+	src/Systems/Render.hpp
+	src/Game/LevelLoader.hpp
+	src/Game/LevelLoader.cpp
+	src/Game/Game.hpp
+	src/Game/Game.cpp
+	src/Main.cpp
 )
 
 set(NAME elwolf2d)
