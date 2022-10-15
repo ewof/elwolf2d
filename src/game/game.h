@@ -3,6 +3,7 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include <entt/entt.hpp>
+#include <sol/sol.hpp>
 #include "../AssetStore/AssetStore.h"
 #include "../systems/render.hpp"
 
@@ -19,6 +20,7 @@ class Game {
 		SDL_Renderer* renderer;
 		SDL_Rect camera;
 
+		sol::state lua;		
 		std::unique_ptr<entt::registry> registry;
 		std::unique_ptr<AssetStore> assetStore;
 

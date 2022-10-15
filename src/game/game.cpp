@@ -8,11 +8,14 @@
 #include "../components/sprite.hpp"
 #include "../components/transform.hpp"
 
+#include "LevelLoader.h"
+
 int Game::windowWidth;
 int Game::windowHeight;
 int Game::mapWidth;
 int Game::mapHeight;
 const char* Game::name;
+LevelLoader loader;
 
 Game::Game() {
     isRunning = false;
@@ -33,7 +36,7 @@ void Game::Init() {
         return;
     }
 
-    Game::name = "elwolfengine";
+    Game::name = "elwolf2d";
     SDL_DisplayMode displayMode;
     SDL_GetCurrentDisplayMode(1, &displayMode);
 
@@ -119,7 +122,9 @@ void Game::Render() {
 }
 
 void Game::Run() {
-    //Load level
+    lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::os);
+    loader.LoadLevel(lua, registry, assetStore, renderer, "../assets/scripts/Level3.lua");
+
     while(isRunning) {
         ProcessInput();
         Update();
