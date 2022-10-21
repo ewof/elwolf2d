@@ -10,23 +10,24 @@
 #include <memory>
 #include <vector>
 
-struct render {
+struct RenderSystem {
 
   void Update(SDL_Renderer *renderer, std::unique_ptr<AssetStore> &AssetStore,
               SDL_Rect &camera, entt::registry &registry) {
     struct RenderableEntity {
-      Transform transformComponent;
-      Sprite spriteComponent;
+      TransformComponent transformComponent;
+      SpriteComponent spriteComponent;
     };
 
     std::vector<RenderableEntity> renderableEntities;
 
-    auto view = registry.view<const Transform, Sprite>();
+    auto view = registry.view<const TransformComponent, SpriteComponent>();
 
     for (auto entity : view) {
       RenderableEntity renderableEntity;
-      renderableEntity.transformComponent = view.get<Transform>(entity);
-      renderableEntity.spriteComponent = view.get<Sprite>(entity);
+      renderableEntity.transformComponent =
+          view.get<TransformComponent>(entity);
+      renderableEntity.spriteComponent = view.get<SpriteComponent>(entity);
 
       // Don't render non-fixed entities outside the camera view
       if ((renderableEntity.transformComponent.position.x +

@@ -1,5 +1,5 @@
 #pragma once
 
-struct CameraFollow {
-  CameraFollow() = default;
+struct CameraFollowComponent {
+  CameraFollowComponent() = default;
 };

@@ -4,7 +4,7 @@
 #include <SDL2/SDL_render.h>
 #include <string>
 
-struct Sprite {
+struct SpriteComponent {
   std::string assetId;
   int width;
   int height;
@@ -13,9 +13,9 @@ struct Sprite {
   SDL_RendererFlip flip;
   SDL_Rect srcRect;
 
-  Sprite(std::string assetId = "", int width = 0, int height = 0,
-         int zIndex = 0, bool isFixed = false, int srcRectX = 0,
-         int srcRectY = 0) {
+  SpriteComponent(std::string assetId = "", int width = 0, int height = 0,
+                  int zIndex = 0, bool isFixed = false, int srcRectX = 0,
+                  int srcRectY = 0) {
     this->assetId = assetId;
     this->width = width;
     this->height = height;

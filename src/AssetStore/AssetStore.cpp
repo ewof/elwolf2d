@@ -8,7 +8,6 @@ AssetStore::~AssetStore() {
   ClearAssets();
   spdlog::info("AssetStore destructor called!");
 }
-
 void AssetStore::ClearAssets() {
   for (auto texture : textures) {
     SDL_DestroyTexture(texture.second);

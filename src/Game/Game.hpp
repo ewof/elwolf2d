@@ -1,6 +1,12 @@
 #pragma once
 
 #include "../AssetStore/AssetStore.hpp"
+#include "../Systems/Animation.hpp"
+#include "../Systems/CameraMovement.hpp"
+#include "../Systems/Collision.hpp"
+#include "../Systems/Damage.hpp"
+#include "../Systems/KeyboardControl.hpp"
+#include "../Systems/Movement.hpp"
 #include "../Systems/Render.hpp"
 #include <SDL2/SDL.h>
 #include <entt/entt.hpp>
@@ -23,8 +29,23 @@ private:
   sol::state lua;
   std::unique_ptr<entt::registry> registry;
   std::unique_ptr<AssetStore> assetStore;
+  entt::delegate<void(CollisionEvent &event, entt::registry &registry)>
+      damageSystemDelegate{}; // I dont think delegates is the best way to do
+                              // these, Damage sys could  prolly bc merged to
+                              // Collision system but i'm just porting for now,
+                              // will prolly change later
+  entt::delegate<void(CollisionEvent &event, entt::registry &registry)>
+      movementSystemDelegate{};
+  entt::delegate<void(KeyPressedEvent &event, entt::registry &registry)>
+      keyboardControlSystemDelagate{};
 
-  std::unique_ptr<render> renderSystem;
+  std::unique_ptr<RenderSystem> renderSystem;
+  std::unique_ptr<AnimationSystem> animationSystem;
+  std::unique_ptr<CollisionSystem> collisionSystem;
+  std::unique_ptr<DamageSystem> damageSystem;
+  std::unique_ptr<KeyboardControlSystem> keyboardControlSystem;
+  std::unique_ptr<CameraMovementSystem> cameraMovementSystem;
+  std::unique_ptr<MovementSystem> movementSystem;
 
 public:
   Game();

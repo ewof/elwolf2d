@@ -2,8 +2,8 @@
 
 #include <sol/sol.hpp>
 
-struct Script{
+struct ScriptComponent {
   sol::function func;
 
-  Script(sol::function func = sol::lua_nil) { this->func = func; }
+  ScriptComponent(sol::function func = sol::lua_nil) { this->func = func; }
 };

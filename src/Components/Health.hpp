@@ -1,9 +1,9 @@
 #pragma once
 
-struct Health {
+struct HealthComponent {
   int healthPercentage;
 
-  Health(int healthPercentage = 0) {
+  HealthComponent(int healthPercentage = 0) {
     this->healthPercentage = healthPercentage;
   }
 };

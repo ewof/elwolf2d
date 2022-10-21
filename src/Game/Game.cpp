@@ -20,7 +20,15 @@ Game::Game() {
   isDebug = false;
   registry = std::make_unique<entt::registry>();
   assetStore = std::make_unique<AssetStore>();
-  renderSystem = std::make_unique<render>();
+
+  renderSystem = std::make_unique<RenderSystem>();
+  animationSystem = std::make_unique<AnimationSystem>();
+  collisionSystem = std::make_unique<CollisionSystem>();
+  damageSystem = std::make_unique<DamageSystem>();
+  keyboardControlSystem = std::make_unique<KeyboardControlSystem>();
+  cameraMovementSystem = std::make_unique<CameraMovementSystem>();
+  movementSystem = std::make_unique<MovementSystem>();
+
   spdlog::info("Game constructor called!");
 }
 
@@ -82,6 +90,8 @@ void Game::ProcessInput() {
       if (event.key.keysym.sym == SDLK_BACKQUOTE) {
         isDebug = !isDebug;
       }
+      KeyPressedEvent e = {event.key.keysym.sym};
+      keyboardControlSystemDelagate(e, *registry);
       break;
     }
   }
@@ -98,7 +108,19 @@ void Game::Update() {
 
   millisecsPreviousFrame = SDL_GetTicks();
 
+  // Subscribe to events
+  damageSystemDelegate.connect<&DamageSystem::onCollision>(damageSystem);
+  keyboardControlSystemDelagate.connect<&KeyboardControlSystem::OnKeyPressed>(
+      keyboardControlSystem);
+  movementSystemDelegate.connect<&MovementSystem::onCollision>(movementSystem);
+
   // Update systems
+  animationSystem->Update(*registry);
+  collisionSystem->Update(*registry, damageSystemDelegate,
+                          movementSystemDelegate);
+  cameraMovementSystem->Update(camera, *registry, Game::mapHeight,
+                               Game::mapHeight, windowWidth, windowHeight);
+  movementSystem->Update(deltaTime, *registry, Game::mapHeight, Game::mapWidth);
 }
 
 void Game::Render() {
