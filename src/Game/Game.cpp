@@ -2,8 +2,6 @@
 #include "../../libs/imgui/backends/imgui_impl_sdl.h"
 #include "../../libs/imgui/backends/imgui_impl_sdlrenderer.h"
 #include "../../libs/imgui/imgui.h"
-#include "../Components/Sprite.hpp"
-#include "../Components/Transform.hpp"
 #include "LevelLoader.hpp"
 #include "spdlog/spdlog.h"
 #include <fstream>
@@ -28,6 +26,7 @@ Game::Game() {
   keyboardControlSystem = std::make_unique<KeyboardControlSystem>();
   cameraMovementSystem = std::make_unique<CameraMovementSystem>();
   movementSystem = std::make_unique<MovementSystem>();
+  projectileEmitSystem = std::make_unique<ProjectileEmitSystem>();
 
   spdlog::info("Game constructor called!");
 }
@@ -92,6 +91,7 @@ void Game::ProcessInput() {
       }
       KeyPressedEvent e = {event.key.keysym.sym};
       keyboardControlSystemDelagate(e, *registry);
+      projectileEmitSystemDelegate(e,*registry);
       break;
     }
   }
@@ -113,6 +113,7 @@ void Game::Update() {
   keyboardControlSystemDelagate.connect<&KeyboardControlSystem::OnKeyPressed>(
       keyboardControlSystem);
   movementSystemDelegate.connect<&MovementSystem::onCollision>(movementSystem);
+  projectileEmitSystemDelegate.connect<&ProjectileEmitSystem::OnKeyPressed>(projectileEmitSystem);
 
   // Update systems
   animationSystem->Update(*registry);

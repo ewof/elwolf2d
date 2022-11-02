@@ -46,6 +46,7 @@ set(SOURCES
     src/Systems/KeyboardControl.hpp
     src/Systems/CameraMovement.hpp
     src/Systems/Movement.hpp
+    src/Systems/ProjectileEmit.hpp
 
 	src/Game/LevelLoader.hpp
 	src/Game/LevelLoader.cpp

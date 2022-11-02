@@ -7,6 +7,7 @@
 #include "../Systems/Damage.hpp"
 #include "../Systems/KeyboardControl.hpp"
 #include "../Systems/Movement.hpp"
+#include "../Systems/ProjectileEmit.hpp"
 #include "../Systems/Render.hpp"
 #include <SDL2/SDL.h>
 #include <entt/entt.hpp>
@@ -38,6 +39,8 @@ private:
       movementSystemDelegate{};
   entt::delegate<void(KeyPressedEvent &event, entt::registry &registry)>
       keyboardControlSystemDelagate{};
+  entt::delegate<void(KeyPressedEvent &event, entt::registry &registry)>
+      projectileEmitSystemDelegate{};
 
   std::unique_ptr<RenderSystem> renderSystem;
   std::unique_ptr<AnimationSystem> animationSystem;
@@ -46,6 +49,7 @@ private:
   std::unique_ptr<KeyboardControlSystem> keyboardControlSystem;
   std::unique_ptr<CameraMovementSystem> cameraMovementSystem;
   std::unique_ptr<MovementSystem> movementSystem;
+  std::unique_ptr<ProjectileEmitSystem> projectileEmitSystem;
 
 public:
   Game();
