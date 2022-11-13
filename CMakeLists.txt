@@ -47,6 +47,8 @@ set(SOURCES
     src/Systems/CameraMovement.hpp
     src/Systems/Movement.hpp
     src/Systems/ProjectileEmit.hpp
+    src/Systems/ProjectileLifecycle.hpp
+    src/Systems/RenderCollider.hpp
 
 	src/Game/LevelLoader.hpp
 	src/Game/LevelLoader.cpp

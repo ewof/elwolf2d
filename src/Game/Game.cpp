@@ -27,6 +27,8 @@ Game::Game() {
   cameraMovementSystem = std::make_unique<CameraMovementSystem>();
   movementSystem = std::make_unique<MovementSystem>();
   projectileEmitSystem = std::make_unique<ProjectileEmitSystem>();
+  projectileLifecycleSystem = std::make_unique<ProjectileLifecycleSystem>();
+  renderColliderSystem = std::make_unique<RenderColliderSystem>();
 
   spdlog::info("Game constructor called!");
 }
@@ -122,6 +124,8 @@ void Game::Update() {
   cameraMovementSystem->Update(camera, *registry, Game::mapHeight,
                                Game::mapHeight, windowWidth, windowHeight);
   movementSystem->Update(deltaTime, *registry, Game::mapHeight, Game::mapWidth);
+  projectileLifecycleSystem->Update(*registry);
+  renderColliderSystem->Update(*registry,renderer,camera);
 }
 
 void Game::Render() {

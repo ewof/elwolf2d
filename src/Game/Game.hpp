@@ -8,6 +8,8 @@
 #include "../Systems/KeyboardControl.hpp"
 #include "../Systems/Movement.hpp"
 #include "../Systems/ProjectileEmit.hpp"
+#include "../Systems/ProjectileLifecycle.hpp"
+#include "../Systems/RenderCollider.hpp"
 #include "../Systems/Render.hpp"
 #include <SDL2/SDL.h>
 #include <entt/entt.hpp>
@@ -50,6 +52,8 @@ private:
   std::unique_ptr<CameraMovementSystem> cameraMovementSystem;
   std::unique_ptr<MovementSystem> movementSystem;
   std::unique_ptr<ProjectileEmitSystem> projectileEmitSystem;
+  std::unique_ptr<ProjectileLifecycleSystem> projectileLifecycleSystem;
+  std::unique_ptr<RenderColliderSystem> renderColliderSystem;
 
 public:
   Game();
