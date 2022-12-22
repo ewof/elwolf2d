@@ -29,6 +29,7 @@ Game::Game() {
   projectileEmitSystem = std::make_unique<ProjectileEmitSystem>();
   projectileLifecycleSystem = std::make_unique<ProjectileLifecycleSystem>();
   renderColliderSystem = std::make_unique<RenderColliderSystem>();
+  renderGUISystem = std::make_unique<RenderGUISystem>();
 
   spdlog::info("Game constructor called!");
 }
@@ -125,7 +126,7 @@ void Game::Update() {
                                Game::mapHeight, windowWidth, windowHeight);
   movementSystem->Update(deltaTime, *registry, Game::mapHeight, Game::mapWidth);
   projectileLifecycleSystem->Update(*registry);
-  renderColliderSystem->Update(*registry,renderer,camera);
+  
 }
 
 void Game::Render() {
@@ -134,8 +135,8 @@ void Game::Render() {
 
   renderSystem->Update(renderer, assetStore, camera, *registry);
   if (isDebug) {
-    // Update RenderColliderSystem
-    // Update RenderGUI system
+    //renderColliderSystem->Update(*registry,renderer,camera);
+    renderGUISystem->Update(*registry,assetStore->textureList,camera,assetStore,loader,renderer,&lua);
   }
 
   SDL_RenderPresent(renderer);
@@ -143,8 +144,7 @@ void Game::Render() {
 
 void Game::Run() {
   lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::os);
-  loader.LoadLevel(lua, registry, assetStore, renderer,
-                   "../assets/scripts/Level3.lua");
+  loader.LoadLevel(&lua, *registry, assetStore, renderer,-1);
 
   while (isRunning) {
     ProcessInput();

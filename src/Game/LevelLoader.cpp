@@ -5,11 +5,18 @@ LevelLoader::LevelLoader() { spdlog::info("LevelLoader constructor called!"); }
 
 LevelLoader::~LevelLoader() { spdlog::info("LevelLoader destructor called!"); }
 
-void LevelLoader::LoadLevel(sol::state &lua,
-                            const std::unique_ptr<entt::registry> &registry,
+void LevelLoader::LoadLevel(sol::state *lua,
+                            entt::registry &registry,
                             const std::unique_ptr<AssetStore> &AssetStore,
-                            SDL_Renderer *renderer, std::string level) {
-  sol::load_result script = lua.load_file(level);
+                            SDL_Renderer *renderer, int level) {
+
+  std::string token = "../assets/scripts/MainMenu.lua";
+
+  if(level != -1) {
+    token = std::string("../assets/scripts/Level" + std::to_string(level) + ".lua");
+  }
+
+  sol::load_result script = lua->load_file(token);
 
   // Checks syntax of script, doesn't execute it
   if (!script.valid()) {
@@ -19,5 +26,5 @@ void LevelLoader::LoadLevel(sol::state &lua,
     return;
   }
 
-  lua.script_file(level);
+  lua->script_file(token);
 }

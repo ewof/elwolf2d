@@ -12,8 +12,8 @@ public:
   LevelLoader();
   ~LevelLoader();
 
-  void LoadLevel(sol::state &lua,
-                 const std::unique_ptr<entt::registry> &registry,
+  void LoadLevel(sol::state *lua,
+                 entt::registry &registry,
                  const std::unique_ptr<AssetStore> &AssetStore,
-                 SDL_Renderer *renderer, std::string level);
+                 SDL_Renderer *renderer, int level);
 };

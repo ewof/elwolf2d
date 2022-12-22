@@ -15,44 +15,9 @@ include_directories(${SDL2_TTF_INCLUDE_DIRS})
 
 
 set(SOURCES
-	assets/scripts/Level1.lua
-	assets/scripts/Level2.lua
-	assets/scripts/Level3.lua
-	src/AssetStore/AssetStore.hpp
 	src/AssetStore/AssetStore.cpp
 
-    src/Events/Collision.hpp
-    src/Events/KeyPressed.hpp
-
-	src/Components/Animation.hpp
-	src/Components/BoxCollider.hpp
-    src/Components/CameraFollow.hpp
-    src/Components/Enemy.hpp
-    src/Components/Health.hpp
-    src/Components/KeyboardControlled.hpp
-    src/Components/Projectile.hpp
-    src/Components/ProjectileEmitter.hpp
-    src/Components/RigidBody.hpp
-    src/Components/Script.hpp
-    src/Components/Sprite.hpp
-    src/Components/TextLabel.hpp
-    src/Components/Transform.hpp
-    src/Components/Obstacle.hpp
-
-	src/Systems/Render.hpp
-    src/Systems/Animation.hpp
-    src/Systems/Collision.hpp
-    src/Systems/Damage.hpp
-    src/Systems/KeyboardControl.hpp
-    src/Systems/CameraMovement.hpp
-    src/Systems/Movement.hpp
-    src/Systems/ProjectileEmit.hpp
-    src/Systems/ProjectileLifecycle.hpp
-    src/Systems/RenderCollider.hpp
-
-	src/Game/LevelLoader.hpp
 	src/Game/LevelLoader.cpp
-	src/Game/Game.hpp
 	src/Game/Game.cpp
 	src/Main.cpp
 )

@@ -11,6 +11,7 @@
 #include "../Systems/ProjectileLifecycle.hpp"
 #include "../Systems/RenderCollider.hpp"
 #include "../Systems/Render.hpp"
+#include "../Systems/RenderGUI.hpp"
 #include <SDL2/SDL.h>
 #include <entt/entt.hpp>
 #include <memory>
@@ -54,6 +55,7 @@ private:
   std::unique_ptr<ProjectileEmitSystem> projectileEmitSystem;
   std::unique_ptr<ProjectileLifecycleSystem> projectileLifecycleSystem;
   std::unique_ptr<RenderColliderSystem> renderColliderSystem;
+  std::unique_ptr<RenderGUISystem> renderGUISystem;
 
 public:
   Game();
