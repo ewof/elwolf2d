@@ -5,6 +5,7 @@
 #include "LevelLoader.hpp"
 #include "spdlog/spdlog.h"
 #include <fstream>
+#include "../Systems/Script.hpp"
 
 int Game::windowWidth;
 int Game::windowHeight;
@@ -12,6 +13,8 @@ int Game::mapWidth;
 int Game::mapHeight;
 const char *Game::name;
 LevelLoader loader;
+
+std::unique_ptr<ScriptSystem> scriptSystem = std::make_unique<ScriptSystem>();
 
 Game::Game() {
   isRunning = false;
@@ -30,6 +33,11 @@ Game::Game() {
   projectileLifecycleSystem = std::make_unique<ProjectileLifecycleSystem>();
   renderColliderSystem = std::make_unique<RenderColliderSystem>();
   renderGUISystem = std::make_unique<RenderGUISystem>();
+  renderHealthBarSystem = std::make_unique<RenderHealthBarSystem>();
+  renderTextSystem = std::make_unique<RenderTextSystem>();
+  
+
+  scriptSystem->CreateLuaBindings(lua);
 
   spdlog::info("Game constructor called!");
 }
@@ -126,6 +134,7 @@ void Game::Update() {
                                Game::mapHeight, windowWidth, windowHeight);
   movementSystem->Update(deltaTime, *registry, Game::mapHeight, Game::mapWidth);
   projectileLifecycleSystem->Update(*registry);
+  scriptSystem->Update(deltaTime,SDL_GetTicks(),*registry);
   
 }
 
@@ -134,6 +143,8 @@ void Game::Render() {
   SDL_RenderClear(renderer);
 
   renderSystem->Update(renderer, assetStore, camera, *registry);
+  renderHealthBarSystem->Update(renderer,assetStore,camera,*registry);
+  renderTextSystem->Update(renderer,assetStore,camera,*registry);
   if (isDebug) {
     //renderColliderSystem->Update(*registry,renderer,camera);
     renderGUISystem->Update(*registry,assetStore->textureList,camera,assetStore,loader,renderer,&lua);
